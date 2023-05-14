@@ -28,7 +28,7 @@ const tokyo5 = new Item(13, "Tokyo Revengers 5", 6700, "../img/tokyo5.jpg");
 const items = [bluelock6, bluelock8, darling2, dorohedoro3, jigokuraku5, mieruko1, mieruko2, mobpsycho3, mushihime2, paradise2, tokyo3, tokyo4, tokyo5];
 
 //Array para el carrito de compras
-const carrito = [];
+let carrito = [];
 
 //Ingresamos mediante DOM
 const contenedorItems = document.getElementById("contenedorItems");
@@ -42,14 +42,87 @@ const crearItems = () => {
                 <div class="card">
                     <img class="card-img-tom" src="${item.img}" alt="${item.nombre}">
                     <div class="card-body">
-                        <h4>Articulo: ${item.nombre}</h4>
+                        <h4>MG: ${item.nombre}</h4>
                         <p>Precio: $${item.precio}</p>
                     </div>
-                    <button class="btn btn-info">Agregar al Carrito</button>
+                    <button class="btn btn-info" id="botonAdd${item.id}">Agregar al Carrito</button>
                 </div>`
         contenedorItems.appendChild(card);
+        const boton = document.getElementById(`botonAdd${item.id}`);
+        boton.addEventListener("click", () => {
+            addIn(item.id);
+        })
     })
 }
 
 //Generamos los Items
 crearItems();
+
+//Funcion que evita repetir item en el carrito
+const addIn = (id) => {
+    const existIn = carrito.find(item => item.id === id);
+    if (existIn) {
+        existIn.cantidad++;
+    } else {
+        const item = items.find(item => item.id === id);
+        carrito.push(item);
+    }
+    calcularTotal();
+};
+
+//Mostrar carrito
+const showCarrito = document.getElementById("showCarrito");
+showCarrito.addEventListener("click", () => {
+    insertCarrito();
+});
+const contenedorCarrito = document.getElementById("contenedorCarrito");
+
+const insertCarrito = () => {
+    contenedorCarrito.innerHTML = "";
+    carrito.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("col-xl-3", "col-md-6", "col-xs-12");
+        card.innerHTML = `
+                <div class="card">
+                    <img class="card-img-tom" src="${item.img}" alt="${item.nombre}">
+                    <div class="card-body">
+                        <h4>MG: ${item.nombre}</h4>
+                        <p>Precio unidad: $${item.precio}</p>
+                        <p>Cantidad: ${item.cantidad}</p>
+                    </div>
+                    <button class="btn btn-danger" id="delete${item.id}">Eliminar</button>
+                </div>`
+        contenedorCarrito.appendChild(card);
+        const boton = document.getElementById(`delete${item.id}`);
+        boton.addEventListener("click", () => {
+            deleteFromCarrito(item.id);
+        })
+    })
+    calcularTotal();
+}
+
+const deleteFromCarrito = (id) => {
+    const item = carrito.find(item => item.id === id);
+    let indice = carrito.indexOf(item);
+    carrito.splice(indice, 1);
+    insertCarrito();
+}
+
+const clearCarrito = document.getElementById("clearCarrito");
+clearCarrito.addEventListener("click", () => {
+    clearAllCarrito();
+})
+
+const clearAllCarrito = () => {
+    carrito = [];
+    insertCarrito();
+}
+
+const montoTotal = document.getElementById("montoTotal");
+const calcularTotal = () => {
+    let total = 0;
+    carrito.forEach(item => {
+        total += item.precio * item.cantidad
+    })
+    montoTotal.innerHTML = `${total}`
+};
