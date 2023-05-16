@@ -44,8 +44,8 @@ const crearItems = () => {
         const card = document.createElement("div");
         card.classList.add("col-xl-3", "col-md-6", "col-xs-12");
         card.innerHTML = `
-                <div class="card">
-                    <img class="card-img-tom" src="${item.img}" alt="${item.nombre}">
+                <div class="card m-2">
+                    <img class="card-img-tom m-3" src="${item.img}" alt="${item.nombre}">
                     <div class="card-body">
                         <h4>MG: ${item.nombre}</h4>
                         <p>Precio: $${item.precio}</p>
