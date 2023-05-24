@@ -5,3 +5,13 @@
 .portadaPropia {
     background-color: #ffc2d1
 }
+
+.estiloComentario {
+    font-size: 23px;
+    text-align: center;
+}
+
+.estiloNombre {
+    font-size: 18px;
+    text-align: center;
+}
