@@ -1,9 +1,5 @@
 .bodyPropio {
-    background-color: #ffe5ec
-}
-
-.portadaPropia {
-    background-color: #ffc2d1
+    background-color: #f8f9fa;
 }
 
 .estiloComentario {
@@ -14,4 +10,31 @@
 .estiloNombre {
     font-size: 18px;
     text-align: center;
+}
+
+.contenedorComentarios {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.cajaComentarios {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    width: 70vh;
+    background-color: #e9ecef;
+    border: 2px black solid;
+    border-radius: 2px;
+    margin: 3rem 0;
+}
+
+.cartaProducto {
+    background-color: #e9ecef;
+}
+
+.cartaNombre {
+    font-size: 19px;
 }

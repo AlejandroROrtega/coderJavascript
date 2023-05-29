@@ -44,10 +44,10 @@ const crearItems = () => {
         const card = document.createElement("div");
         card.classList.add("col-xl-3", "col-md-6", "col-xs-12");
         card.innerHTML = `
-                <div class="card m-2">
+                <div class="card m-2 cartaProducto">
                     <img class="card-img-tom m-3" src="${item.img}" alt="${item.nombre}">
                     <div class="card-body">
-                        <h4>MG: ${item.nombre}</h4>
+                        <h4 class="cartaNombre">${item.nombre}</h4>
                         <p>Precio: $${item.precio}</p>
                     </div>
                     <button class="btn btn-info" id="botonAdd${item.id}">Agregar al Carrito</button>
@@ -143,7 +143,24 @@ const deleteFromCarrito = (id) => {
 
 const clearCarrito = document.getElementById("clearCarrito");
 clearCarrito.addEventListener("click", () => {
-    clearAllCarrito();
+    Swal.fire({
+        icon: "warning",
+        title: "¿Estás seguro/a?",
+        text: "El carrito se vaciará por completo",
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "Vaciar",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if(result.isConfirmed) {
+            clearAllCarrito();
+            Swal.fire({
+                icon: "success",
+                title: "Carrito vaciado correctamente",
+                confirmButtonText: "VOLVER A LA TIENDA",
+            })
+        }
+    })
 })
 
 //Función que vacia e inica de cero el carrito
@@ -171,8 +188,10 @@ fetch(comentariosClientes)
     .then(comentarios => {
         comentarios.forEach(comentario => {
             divComentariosClientes.innerHTML += `
-                                                <h4 class="estiloComentario">${comentario.comentario}</h4>
-                                                <p class="estiloNombre">- ${comentario.nombre} ${comentario.apellido}.</p>
+                                                <div data-aos="flip-left" data-aos-duration="1300" class="cajaComentarios">
+                                                    <h4 class="estiloComentario">${comentario.comentario}</h4>
+                                                    <p class="estiloNombre">- ${comentario.nombre} ${comentario.apellido}.</p>
+                                                </div>
                                                 `
         })
     })
