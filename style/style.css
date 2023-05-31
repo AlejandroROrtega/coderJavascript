@@ -35,6 +35,20 @@
     background-color: #e9ecef;
 }
 
-.cartaNombre {
-    font-size: 19px;
+.contenedorBotones {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.bannerPromocion {
+    background-color: #e9ecef;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.tituloTop {
+    margin: 1rem 0;
 }
